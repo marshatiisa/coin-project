@@ -1,0 +1,57 @@
+<%- include('partials/header') -%>
+
+<main class="container">
+  <div class="row justify-content-around mt-5">
+    <a href="/login" class="col-3 btn btn-primary"> Login</a>
+    <a href="/signup" class="col-3 btn btn-primary"> Signup</a>
+  </div>
+</main>
+<body>
+  <!-- ========= NAV BAR: OSCAR & TYANA ================== -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top bg-body-tertiary">
+    <a class="navbar-brand" href="#">
+      <img src="/imgs/coinNoBackground.png"  width="30" height="24">
+    </a> 
+  </div>
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+        <a class="nav-link" href="/expense">Expense</a>
+        <a class="nav-link" href="/income">Income</a>
+        <a class="nav-link" href="/logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+  <div>
+    <section>
+      <form id="newExpense"  action="/expenses/createExpenses/" enctype="multipart/form-data" method="POST">
+        <input name="expenseName" type="text" placeholder="Title" />
+        <!-- EXPENSE CATEGORY [can connect to a DB database]-->
+        <!-- Expense Back-End Team removed for loop as data is not reflected in the DB yet, and therefore, making the page crash. We kept the code, and once we know the collection name and have data to plug in, we will replug it into the EJS.-->
+        <!-- Add input for month -->
+        <input name="expenseCost" type="number" placeholder="cost" />
+        <span>Is this a reoccuring expense?</span>
+        <input name="isRecurring" type="radio" id="isRepeating" />
+        <label for="isRecurring">Yes</label>
+        <input name="isRecurring" type="radio" id="notRepeating" />
+        <label for="notRepeating">No</label>
+        <button type="submit">Add</button>
+        <button>Clear</button>
+      </form>
+    </section>
+    <section>
+      <img />
+    </section>
+  </div>
+</body>
+
+<%- include('partials/footer') -%>

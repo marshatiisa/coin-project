@@ -10,11 +10,21 @@ module.exports = {
       //this is looking for all the orders marked as done
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
       const order = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", {
+      res.render("dashboard.ejs", {
         posts: posts,
         order: order,
         pending: pending,
         done: done
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, 
+  getDashboard: async (req, res) => {
+    try {
+
+      res.render("dashboard.ejs", {
+      
       });
     } catch (err) {
       console.log(err);
@@ -49,29 +59,24 @@ module.exports = {
     }
   },
   createPost: async (req, res) => {
+    console.log(req.body);
     try {
+      //Use post schema in models to create and save a document to Mongo DB Atlas
       await Post.create({
-        name: req.body.name,
-        order: req.body.monster,
-        custom: req.body.custom
-
-        // mothman: req.body.mothman,
-        // kraken: req.body.kraken,
-        // cuthulu: req.body.cuthulu,
-        // jack: req.body.jack,
-        // trick: req.body.trick,
-        // witch: req.body.witch,
-        // camp: req.body.camp,
-        // cider: req.body.cider,
-        // vanilla: req.body.vanilla,
-
+        category: req.body.category,
+        title: req.body.title,
+        cost: req.body.expenseCost,
+        incomeMonth: req.body.incomeMonth,
+        expenseMonth: req.body.expenseMonth,
+        total: req.body.total,
       });
       console.log("Post has been added!");
-      res.redirect("/profile");
+      res.redirect("/dashboard");
     } catch (err) {
       console.log(err);
     }
   },
+  // Line 51-67...This will create and save documents based on post schema, this will be sent to Mongo DB Atlas... - Abdullahi Ali
   complete: async (req, res) => {
     try {
       await Post.findOneAndUpdate(
@@ -82,7 +87,7 @@ module.exports = {
         }
       );
       console.log('order marked as pending');
-      res.redirect(`/profile`);
+      res.redirect(`/dashboard`);
     } catch (err) {
       console.log(err);
     }
@@ -92,9 +97,9 @@ module.exports = {
       // Delete post from db
       await Post.remove({ _id: req.params.id });
       console.log("Deleted Post");
-      res.redirect("/profile");
+      res.redirect("/dashboard");
     } catch (err) {
-      res.redirect("/profile");
+      res.redirect("/dashboard");
     }
   },
 };
